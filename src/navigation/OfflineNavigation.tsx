@@ -1,17 +1,23 @@
 import React from "react";
-import { SCREEN_LOGIN, SCREEN_SIGNIN } from "../constants/navigation";
+import {
+  SCREEN_LOGIN,
+  SCREEN_ONBOARDING,
+  SCREEN_SIGNIN,
+} from "../constants/navigation";
 import { IStackScreen } from "../models/navigation";
 import LoginScreen from "../screens/LoginScreen";
+import OnboardingScreen from "../screens/OnboardingScreen/OnboardingScreen";
 import SigninScreen from "../screens/SigninScreen";
 import StackNavigation from "./components/StackNavigation";
 
-const SCREEN_LIST: Array<IStackScreen> = [
-  { ...SCREEN_LOGIN, component: LoginScreen, options: undefined },
-  { ...SCREEN_SIGNIN, component: SigninScreen, options: undefined },
+const listOfScreens: Array<IStackScreen> = [
+  { component: OnboardingScreen, ...SCREEN_ONBOARDING },
+  { component: LoginScreen, ...SCREEN_LOGIN },
+  { component: SigninScreen, ...SCREEN_SIGNIN },
 ];
 
 const OfflineNavigation = () => {
-  return <StackNavigation listOfScreens={SCREEN_LIST} />;
+  return <StackNavigation listOfScreens={listOfScreens} />;
 };
 
 export default OfflineNavigation;

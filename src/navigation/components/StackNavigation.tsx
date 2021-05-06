@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { IStackScreen } from "../../models/navigation";
 import palette from "../../constants/palette";
+import { StyleSheet } from "react-native";
 const Stack = createStackNavigator();
 
 type StackNavigationProps = {
@@ -17,21 +18,23 @@ const StackNavigation = ({ listOfScreens }: StackNavigationProps) => {
             key={screen.key}
             name={screen.label}
             component={screen.component}
-            options={{
-              headerStyle: {
-                height: 80, // Specify the height of your custom header
-                backgroundColor: palette.dark.surface2,
-                elevation: 10,
-              },
-              headerTitleStyle: {
-                color: palette.light.text1,
-              },
-            }}
+            options={{ ...screen.options, ...styles }}
           />
         );
       })}
     </Stack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  headerStyle: {
+    height: 80,
+    backgroundColor: palette.dark.surface2,
+    elevation: 10,
+  },
+  headerTitleStyle: {
+    color: palette.light.text1,
+  },
+});
 
 export default StackNavigation;

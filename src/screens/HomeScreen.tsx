@@ -9,7 +9,7 @@ import {
 import palette from "../constants/palette";
 import { useVisible } from "../hooks/useBoolean";
 import useVerticalDrawerAnimation from "../hooks/useVerticalDrawerAnimation";
-import colorSystemToPalette from "../services/colorSystemToPalette";
+import colorSystemToPalette from "../utils/colorSystemToPalette";
 import { Modal, Portal, Text, Button, Provider } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import VerticalDrawer from "../components/VerticalDrawer";

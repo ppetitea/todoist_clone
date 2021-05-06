@@ -3,7 +3,7 @@ import colorSystem, {
   colors,
   text,
   opacity,
-} from "../constants/colorSystem";
+} from "./colorSystem";
 import { ColorHSL, IColorHSL } from "../models/colors";
 
 const buildTextPalette = () => {

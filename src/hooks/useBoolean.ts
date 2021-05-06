@@ -22,5 +22,6 @@ const useVisible = (initialValue = false) => {
   return visibleSyntax;
 };
 
+export type BooleanHookFunction = () => void;
 export { useBoolean, useVisible };
 export default useBoolean;

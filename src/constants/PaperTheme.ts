@@ -1,0 +1,51 @@
+export const RNElementsTheme = {
+  colors: {
+    primary: "hsl(5, 68%, 55%)",
+    secondary: "hsl(5, 68%, 55%)",
+    white: "hsl(0, 0%, 100%)",
+    black: "hsl(0, 0%, 0%)",
+    grey0: "hsl(0, 0%, 88%)",
+    grey1: "hsl(0, 0%, 92%)",
+    grey2: "hsl(0, 0%, 94%)",
+    grey3: "hsl(0, 0%, 96%)",
+    grey4: "hsl(0, 0%, 98%)",
+    grey5: "hsl(0, 0%, 100%)",
+    greyOutline: "hsla(0, 0%, 100%, 0.23)",
+    searchBg: "hsl(0, 0%, 88%)",
+    success: "hsl(122, 39%, 49%)",
+    error: "hsl(4, 90%, 58%)",
+    warning: "hsl(36, 100%, 50%)",
+    divider: "hsla(0, 0%, 100%, 0.12)",
+    platform: {
+      ios: {
+        primary: "hsl(5, 68%, 55%)",
+        secondary: "hsl(5, 68%, 55%)",
+        grey: "hsl(0, 0%, 92%)",
+        searchBg: "hsl(0, 0%, 88%)",
+        success: "hsl(122, 39%, 49%)",
+        error: "hsl(4, 90%, 58%)",
+        warning: "hsl(36, 100%, 50%)",
+      },
+      android: {
+        primary: "hsl(5, 68%, 55%)",
+        secondary: "hsl(5, 68%, 55%)",
+        grey: "hsl(0, 0%, 92%)",
+        searchBg: "hsl(0, 0%, 88%)",
+        success: "hsl(122, 39%, 49%)",
+        error: "hsl(4, 90%, 58%)",
+        warning: "hsl(36, 100%, 50%)",
+      },
+      web: {
+        primary: "hsl(5, 68%, 55%)",
+        secondary: "hsl(5, 68%, 55%)",
+        grey: "hsl(0, 0%, 92%)",
+        searchBg: "hsl(0, 0%, 88%)",
+        success: "hsl(122, 39%, 49%)",
+        error: "hsl(4, 90%, 58%)",
+        warning: "hsl(36, 100%, 50%)",
+      },
+    },
+  },
+};
+
+export default RNElementsTheme;
