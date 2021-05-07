@@ -3,24 +3,16 @@ import { StyleSheet, Text, View } from "react-native";
 import { Button, Portal } from "react-native-paper";
 import LeftDrawer from "../components/LeftDrawer";
 import RightDrawer from "../components/RightDrawer";
-import {
-  SCREEN_HOME,
-  SCREEN_LOGIN,
-  SCREEN_SIGNIN,
-} from "../constants/navigation";
+import { SCREEN_HOME } from "../constants/navigation";
 import palette from "../constants/palette";
 import useLeftDrawerAnimation from "../hooks/useLeftDrawerAnimation";
 import useRightDrawerAnimation from "../hooks/useRightDrawerAnimation";
 import { IStackScreen } from "../models/navigation";
 import HomeScreen from "../screens/HomeScreen";
-import LoginScreen from "../screens/LoginScreen";
-import SigninScreen from "../screens/SigninScreen";
 import StackNavigation from "./components/StackNavigation";
 
 const SCREEN_LIST: Array<IStackScreen> = [
   { ...SCREEN_HOME, component: HomeScreen, options: undefined },
-  { ...SCREEN_LOGIN, component: LoginScreen, options: undefined },
-  { ...SCREEN_SIGNIN, component: SigninScreen, options: undefined },
 ];
 
 const SecureNavigation = () => {
