@@ -6,57 +6,76 @@ import Container from "../../../components/Container";
 import TextInput from "../../../components/TextInput";
 import Typo from "../../../components/Typo";
 import palette from "../../../constants/palette";
-import { BooleanHookFunction } from "../../../hooks/useBoolean";
+import useBoolean, { BooleanHookFunction } from "../../../hooks/useBoolean";
+import { TextInput as PaperTextInput } from "react-native-paper";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
 const { width } = Dimensions.get("window");
 
-interface IEmailForm {
+interface IPasswordForm {
   emailValue: string;
   onDismiss: BooleanHookFunction;
-  onSubmitEmailValueAsync: (emailValue: string) => void;
+  onSubmitPasswordValueAsync: (passwordValue: string) => void;
 }
 
-const EmailForm = (props: IEmailForm) => {
-  const { emailValue, onDismiss, onSubmitEmailValueAsync } = props;
+const PasswordForm = (props: IPasswordForm) => {
+  const { emailValue, onDismiss, onSubmitPasswordValueAsync } = props;
+  const secureEntry = useBoolean(true);
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Email invalide").required("requis"),
+    password: Yup.string().min(6).required("Requis"),
   });
+
   return (
     <Formik
-      initialValues={{ email: emailValue }}
+      initialValues={{ password: "" }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
-        await onSubmitEmailValueAsync(values.email);
+        await onSubmitPasswordValueAsync(values.password);
       }}
     >
       {({ handleChange, handleSubmit, values, isValid, isSubmitting }) => (
         <Container page statusBar>
           <Container fullWidth marginV20>
             <Icon
-              name="close"
+              name="ios-arrow-back"
+              type="ionicon"
               size={24}
               containerStyle={{ width: 24 }}
               onPress={onDismiss}
             />
           </Container>
           <Container fullWidth>
-            <Typo h2 bold center>
-              Quelle est votre adresse e-mail ?
+            <Typo h2 bold>
+              Connectez-vous avec votre mot de passe
+            </Typo>
+            <Typo h5 d3>
+              {`Vous utilisez `}
+              <Typo h5 bold d2>
+                {emailValue}
+              </Typo>
+              {` pour vous connecter.`}
             </Typo>
           </Container>
           <Container fullWidth marginV10>
             <TextInput
               autofocus
-              value={values.email}
-              onChangeText={handleChange("email")}
+              label="Mot de passe"
+              value={values.password}
+              onChangeText={handleChange("password")}
+              right={
+                <PaperTextInput.Icon
+                  name={secureEntry.value ? "eye" : "eye-off"}
+                  onPress={secureEntry.toggle}
+                />
+              }
+              secureTextEntry={secureEntry.value}
             />
           </Container>
           <Button
             large
-            title="CONTINUER AVEC L'E-MAIL"
+            title="CONNEXION"
             disabled={!isValid || isSubmitting}
             onPress={handleSubmit}
           />
@@ -66,4 +85,4 @@ const EmailForm = (props: IEmailForm) => {
   );
 };
 
-export default EmailForm;
+export default PasswordForm;

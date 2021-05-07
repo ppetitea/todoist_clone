@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import palette from "../constants/palette";
 import { buildStyle } from "../utils/buildStyle";
 import { TextInput as PaperTextInput } from "react-native-paper";
@@ -11,14 +11,17 @@ const TextInput = React.forwardRef((props: any, ref) => {
 
   const shouldTriggerAutofocus = () => props?.autofocus;
   const triggerAutofocus = () => {
-    setTimeout(() => {
+    return setTimeout(() => {
       //@ts-ignore
       inputRef.current.focus();
     }, 150);
   };
 
   useEffect(() => {
-    if (shouldTriggerAutofocus()) triggerAutofocus();
+    if (shouldTriggerAutofocus()) {
+      const timeout = triggerAutofocus();
+      return () => clearTimeout(timeout);
+    }
   }, []);
 
   return (
@@ -37,7 +40,6 @@ const styles = StyleSheet.create({
   button: { letterSpacing: 1.5 },
   bold: { fontWeight: "bold" },
   center: { textAlign: "center" },
-  right: { textAlign: "right" },
   d1: { color: palette.dark.text1 },
   d2: { color: palette.dark.text2 },
   d3: { color: palette.dark.text3 },

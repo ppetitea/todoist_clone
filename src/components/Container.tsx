@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   spaceAround: { justifyContent: "space-around" },
   center: { justifyContent: "center" },
   flex: { flex: 1 },
+  marginV5: { marginVertical: 5 },
   marginV10: { marginVertical: 10 },
   marginV20: { marginVertical: 20 },
   marginV30: { marginVertical: 30 },

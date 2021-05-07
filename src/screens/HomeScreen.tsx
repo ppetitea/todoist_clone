@@ -13,6 +13,7 @@ import colorSystemToPalette from "../utils/colorSystemToPalette";
 import { Modal, Portal, Text, Button, Provider } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import VerticalDrawer from "../components/VerticalDrawer";
+import { auth } from "../services/firebase";
 
 const { width, height } = Dimensions.get("window");
 
@@ -37,6 +38,13 @@ const TestModal = ({ visible, hideModal }: any) => {
         <Button onPress={() => verticalDrawer.open()}>show</Button>
         <Button onPress={() => verticalDrawer.close()}>hide</Button>
       </View>
+      <Button
+        onPress={() => {
+          auth.signOut();
+        }}
+      >
+        logout
+      </Button>
       <StatusBar style="light" />
     </View>
   );

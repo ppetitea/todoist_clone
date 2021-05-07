@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 
 const useBoolean = (initialValue = false) => {
+  const [virgin, setVirgin] = useState(true);
   const [value, setValue] = useState(initialValue);
 
-  const enable = () => setValue(true);
-  const disable = () => setValue(false);
-  const toggle = () => setValue(!value);
-  return { value, setValue, enable, disable, toggle };
+  const touchValue = (value: boolean) => {
+    setValue(value);
+    if (virgin) setVirgin(false);
+  };
+  const enable = () => touchValue(true);
+  const disable = () => touchValue(false);
+  const toggle = () => touchValue(!value);
+  return { value, setValue: touchValue, enable, disable, toggle, virgin };
 };
 
 const useVisible = (initialValue = false) => {

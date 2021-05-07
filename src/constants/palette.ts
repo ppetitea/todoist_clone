@@ -58,6 +58,7 @@ const palette = {
     dark4: "hsl(5, 68%, 35%)",
     dark5: "hsl(5, 68%, 25%)",
     background: "hsla(5, 68%, 55%, 0.08)",
+    disabled: "hsla(5, 68%, 55%, 0.5)",
     border: "hsla(5, 68%, 55%, 0.5)",
     text1: "hsla(0, 0%, 100%, 1)",
     text2: "hsla(0, 0%, 100%, 0.87)",

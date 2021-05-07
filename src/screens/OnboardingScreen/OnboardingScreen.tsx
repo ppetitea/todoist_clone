@@ -13,6 +13,9 @@ import { useNavigation } from "@react-navigation/core";
 import useBoolean, { useVisible } from "../../hooks/useBoolean";
 import EmailForm from "./components/EmailForm";
 import Modal from "../../components/Modal";
+import PasswordForm from "./components/PasswordForm";
+import RegistrationForm from "./components/RegistrationForm";
+import AuthWithEmail from "./components/AuthWithEmail";
 
 const { width } = Dimensions.get("window");
 
@@ -101,22 +104,13 @@ const OnboardingScreen = () => {
             titleStyle={{ color: palette.dark.text3 }}
           />
         </Container>
-
         <Container fullWidth>
           <Typo center d3 style={{ marginVertical: 10 }}>
             Copyright - ©PauseAndPlan
           </Typo>
         </Container>
       </Container>
-      {emailForm.visible ? (
-        <Modal
-          visible={emailForm.visible}
-          onDismiss={emailForm.hide}
-          animationType="fade"
-        >
-          <EmailForm onDismiss={emailForm.hide} />
-        </Modal>
-      ) : null}
+      <AuthWithEmail visible={emailForm.visible} onDismiss={emailForm.hide} />
     </Container>
   );
 };
