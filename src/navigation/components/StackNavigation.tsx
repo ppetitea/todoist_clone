@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { IStackScreen } from "../../models/navigation";
 import palette from "../../constants/palette";
 import { StyleSheet } from "react-native";
+import { useTheme } from "../hooks/ThemeContext";
 const Stack = createStackNavigator();
 
 type StackNavigationProps = {
@@ -10,6 +11,7 @@ type StackNavigationProps = {
 };
 
 const StackNavigation = ({ listOfScreens }: StackNavigationProps) => {
+  const theme = useTheme();
   return (
     <Stack.Navigator>
       {listOfScreens.map((screen: IStackScreen) => {
@@ -18,7 +20,16 @@ const StackNavigation = ({ listOfScreens }: StackNavigationProps) => {
             key={screen.key}
             name={screen.label}
             component={screen.component}
-            options={{ ...screen.options, ...styles }}
+            options={{
+              ...screen.options,
+              headerStyle: {
+                ...styles.headerStyle,
+                backgroundColor: theme.surface3,
+              },
+              headerTitleStyle: {
+                color: theme.text1,
+              },
+            }}
           />
         );
       })}
@@ -29,11 +40,7 @@ const StackNavigation = ({ listOfScreens }: StackNavigationProps) => {
 const styles = StyleSheet.create({
   headerStyle: {
     height: 80,
-    backgroundColor: palette.dark.surface2,
     elevation: 10,
-  },
-  headerTitleStyle: {
-    color: palette.light.text1,
   },
 });
 

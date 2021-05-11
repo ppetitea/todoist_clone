@@ -1,45 +1,49 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button, Portal } from "react-native-paper";
-import LeftDrawer from "../components/LeftDrawer";
-import RightDrawer from "../components/RightDrawer";
-import { SCREEN_HOME } from "../constants/navigation";
+import Drawer from "../components/Drawer/Drawer";
+import useDrawer from "../components/Drawer/hooks/useDrawer";
+import Typo from "../components/Typo";
+import { SCREEN_HOME, SCREEN_TODAY } from "../constants/navigation";
 import palette from "../constants/palette";
-import useLeftDrawerAnimation from "../hooks/useLeftDrawerAnimation";
-import useRightDrawerAnimation from "../hooks/useRightDrawerAnimation";
 import { IStackScreen } from "../models/navigation";
-import HomeScreen from "../screens/HomeScreen";
+import TodayScreen from "../screens/TodayScreen/TodayScreen";
+import { auth } from "../services/firebase";
 import StackNavigation from "./components/StackNavigation";
+import DrawerContext from "./hooks/DrawerContext";
 
 const SCREEN_LIST: Array<IStackScreen> = [
-  { ...SCREEN_HOME, component: HomeScreen, options: undefined },
+  { ...SCREEN_TODAY, component: TodayScreen, options: undefined },
 ];
 
 const SecureNavigation = () => {
-  const leftDrawer = useLeftDrawerAnimation();
-  const rightDrawer = useRightDrawerAnimation();
+  const leftDrawer = useDrawer("left");
+  const rightDrawer = useDrawer("right");
   return (
-    <Portal.Host>
-      <StackNavigation listOfScreens={SCREEN_LIST} />
-      <RightDrawer drawer={rightDrawer}>
-        <Text style={{ ...styles.fadingText, color: palette.light.text1 }}>
-          Horizontal drawer
-        </Text>
-        <View style={styles.buttonRow}>
-          <Button onPress={() => rightDrawer.open()}>show</Button>
-          <Button onPress={() => rightDrawer.close()}>hide</Button>
-        </View>
-      </RightDrawer>
-      <LeftDrawer drawer={leftDrawer}>
-        <Text style={{ ...styles.fadingText, color: palette.light.text1 }}>
-          Horizontal drawer
-        </Text>
-        <View style={styles.buttonRow}>
-          <Button onPress={() => leftDrawer.open()}>show</Button>
-          <Button onPress={() => leftDrawer.close()}>hide</Button>
-        </View>
-      </LeftDrawer>
-    </Portal.Host>
+    <DrawerContext.Provider value={{ leftDrawer, rightDrawer }}>
+      <Portal.Host>
+        <StackNavigation listOfScreens={SCREEN_LIST} />
+        <Drawer drawer={rightDrawer}>
+          <Typo title center m10>
+            Right drawer
+          </Typo>
+          <View style={styles.buttonRow}>
+            <Button onPress={() => rightDrawer.open()}>show</Button>
+            <Button onPress={() => rightDrawer.close()}>hide</Button>
+          </View>
+        </Drawer>
+        <Drawer drawer={leftDrawer}>
+          <Typo title center m10>
+            Left drawer
+          </Typo>
+          <View style={styles.buttonRow}>
+            <Button onPress={() => leftDrawer.open()}>show</Button>
+            <Button onPress={() => leftDrawer.close()}>hide</Button>
+          </View>
+          <Button onPress={() => auth.signOut()}>Signout</Button>
+        </Drawer>
+      </Portal.Host>
+    </DrawerContext.Provider>
   );
 };
 
@@ -54,4 +58,5 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
 });
+
 export default SecureNavigation;

@@ -4,12 +4,17 @@ import OfflineNavigation from "./OfflineNavigation";
 import SecureNavigation from "./SecureNavigation";
 import { auth } from "../services/firebase";
 import useBoolean from "../hooks/useBoolean";
-import RNElementsTheme, { PaperTheme } from "../constants/RNElementsTheme";
 import { ThemeProvider } from "react-native-elements";
 import { Provider as PaperProvider } from "react-native-paper";
+import ThemeContext, {
+  useNewThemeContext,
+  useThemeContext,
+} from "./hooks/ThemeContext";
+import { toElementsLibraryTheme, toPaperTheme } from "../constants/theme";
 
 const AppNavigation = () => {
   const authorizeAccessToSecureNavigation = useBoolean();
+  const themeContext = useNewThemeContext("light");
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser: any) => {
@@ -19,17 +24,21 @@ const AppNavigation = () => {
   });
 
   return (
-    <PaperProvider theme={PaperTheme}>
-      <ThemeProvider theme={RNElementsTheme}>
-        <NavigationContainer>
-          {authorizeAccessToSecureNavigation.value ? (
-            <SecureNavigation />
-          ) : (
-            <OfflineNavigation />
-          )}
-        </NavigationContainer>
-      </ThemeProvider>
-    </PaperProvider>
+    <ThemeContext.Provider value={themeContext}>
+      <PaperProvider
+        theme={toPaperTheme(themeContext.mode, themeContext.theme)}
+      >
+        <ThemeProvider theme={toElementsLibraryTheme(themeContext.theme)}>
+          <NavigationContainer>
+            {authorizeAccessToSecureNavigation.value ? (
+              <SecureNavigation />
+            ) : (
+              <OfflineNavigation />
+            )}
+          </NavigationContainer>
+        </ThemeProvider>
+      </PaperProvider>
+    </ThemeContext.Provider>
   );
 };
 

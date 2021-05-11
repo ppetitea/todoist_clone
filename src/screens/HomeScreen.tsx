@@ -8,35 +8,33 @@ import {
 } from "react-native";
 import palette from "../constants/palette";
 import { useVisible } from "../hooks/useBoolean";
-import useVerticalDrawerAnimation from "../hooks/useVerticalDrawerAnimation";
-import colorSystemToPalette from "../utils/colorSystemToPalette";
 import { Modal, Portal, Text, Button, Provider } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
-import VerticalDrawer from "../components/VerticalDrawer";
 import { auth } from "../services/firebase";
+import Drawer from "../components/Drawer/Drawer";
+import useDrawer from "../components/Drawer/hooks/useDrawer";
 
 const { width, height } = Dimensions.get("window");
 
 const TestModal = ({ visible, hideModal }: any) => {
-  const verticalDrawer = useVerticalDrawerAnimation();
+  const drawer = useDrawer("bottom");
 
   const textColor = palette.light.text1;
   const bgColor = palette.dark.surface1;
-  //   colorSystemToPalette();
   return (
     <View style={styles.container}>
-      <VerticalDrawer drawer={verticalDrawer}>
+      <Drawer drawer={drawer}>
         <Text style={{ ...styles.fadingText, color: textColor }}>
           Vertical drawer
         </Text>
         <View style={styles.buttonRow}>
-          <Button onPress={() => verticalDrawer.open()}>show</Button>
-          <Button onPress={() => verticalDrawer.close()}>hide</Button>
+          <Button onPress={() => drawer.open()}>show</Button>
+          <Button onPress={() => drawer.close()}>hide</Button>
         </View>
-      </VerticalDrawer>
+      </Drawer>
       <View style={styles.buttonRow}>
-        <Button onPress={() => verticalDrawer.open()}>show</Button>
-        <Button onPress={() => verticalDrawer.close()}>hide</Button>
+        <Button onPress={() => drawer.open()}>show</Button>
+        <Button onPress={() => drawer.close()}>hide</Button>
       </View>
       <Button
         onPress={() => {

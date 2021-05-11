@@ -3,11 +3,16 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import palette from "../constants/palette";
 import { buildStyle } from "../utils/buildStyle";
 import Constants from "expo-constants";
+import { useTheme } from "../navigation/hooks/ThemeContext";
 
 const { width, height } = Dimensions.get("window");
 
 const Container = (props: any) => {
   let style = buildStyle(props, styles);
+  const theme = useTheme();
+  if (props.page) {
+    style = StyleSheet.compose(style, { backgroundColor: theme.surface0 });
+  }
 
   return (
     <View {...props} style={[style, props.style]}>
