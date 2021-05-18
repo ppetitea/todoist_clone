@@ -16,7 +16,7 @@ import Modal from "../../components/Modal";
 import PasswordForm from "./components/PasswordForm";
 import RegistrationForm from "./components/RegistrationForm";
 import AuthWithEmail from "./components/AuthWithEmail";
-import { auth, firebase } from "../../services/firebase";
+import { auth, db, firebase } from "../../services/firebase";
 import * as Google from "expo-auth-session/providers/google";
 import * as Facebook from "expo-auth-session/providers/facebook";
 import * as WebBrowser from "expo-web-browser";
@@ -24,6 +24,7 @@ import { googleConfig, facebookConfig } from "../../../config/config";
 import { ResponseType } from "expo-auth-session";
 import { Prompt } from "expo-auth-session";
 import { useTheme } from "../../navigation/hooks/ThemeContext";
+import addUserInFirestore from "./services/addUserInFirestore";
 
 const { width } = Dimensions.get("window");
 
@@ -41,7 +42,18 @@ const useGoogleSignin = () => {
     if (response?.type === "success") {
       const { id_token } = response.params;
       const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
-      auth.signInWithCredential(credential);
+      auth.signInWithCredential(credential).then((res) => {
+        if (res.user) {
+          const profil = {
+            id: res.user?.uid,
+            name: res.user?.displayName,
+            email: res.user?.email,
+            phone: res.user?.phoneNumber,
+            photoUrl: res.user?.photoURL,
+          };
+          addUserInFirestore(profil);
+        }
+      });
     }
   }, [response]);
   return { response, request, signin: promptAsync };
@@ -59,10 +71,8 @@ const useFacebookSignin = () => {
   useEffect(() => {
     if (response?.type === "success") {
       const { access_token } = response.params;
-      const credential = firebase.auth.FacebookAuthProvider.credential(
-        access_token
-      );
-      console.log(credential);
+      const credential =
+        firebase.auth.FacebookAuthProvider.credential(access_token);
       auth.signInWithCredential(credential);
     }
   }, [response]);
@@ -70,7 +80,6 @@ const useFacebookSignin = () => {
 };
 
 const OnboardingScreen = () => {
-  const navigation = useNavigation();
   const emailForm = useVisible();
   const google = useGoogleSignin();
   const facebook = useFacebookSignin();

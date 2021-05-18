@@ -8,7 +8,8 @@ const useString = (initialValue = "") => {
     setValue(value);
     if (virgin) setVirgin(false);
   };
-  return { value, setValue: touchValue, virgin };
+  const isEmpty = () => !value || value === "";
+  return { value, setValue: touchValue, virgin, isEmpty };
 };
 
 export { useString };

@@ -8,6 +8,8 @@ const Typo = (props: any) => {
   const theme = useTheme();
   const styles = StyleSheet.create({
     default: { color: theme.text1 },
+    primary: { color: theme.primary },
+    secondary: { color: theme.secondary },
     title: { fontSize: 26, fontWeight: "600" },
     h1: { fontSize: 26, fontWeight: "600" },
     h2: { fontSize: 22 },
@@ -19,10 +21,13 @@ const Typo = (props: any) => {
     bold: { fontWeight: "bold" },
     center: { textAlign: "center" },
     right: { textAlign: "right" },
+    flex: { flex: 1 },
     c1: { color: theme.text1 },
     c2: { color: theme.text2 },
     c3: { color: theme.text3 },
     marginV10: { marginVertical: 10 },
+    marginH10: { marginHorizontal: 10 },
+    marginH5: { marginHorizontal: 5 },
     m10: { margin: 10 },
   });
   let style = buildStyle(props, styles);

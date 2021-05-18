@@ -6,6 +6,7 @@ const colors = {
     secondary: "hsl(5, 68%, 55%)",
     white: "hsl(0, 0%, 100%)",
     black: "hsl(0, 0%, 0%)",
+    bar: "hsl(5, 68%, 55%)",
     surface0: "hsl(0, 0%, 88%)",
     surface1: "hsl(0, 0%, 92%)",
     surface2: "hsl(0, 0%, 94%)",
@@ -22,13 +23,14 @@ const colors = {
     success: "hsl(122, 39%, 49%)",
     error: "hsl(4, 90%, 58%)",
     warning: "hsl(36, 100%, 50%)",
-    roundness: 4,
+    info: "hsl(207, 90%, 54%)",
   },
   dark: {
     primary: "hsl(5, 68%, 55%)",
     secondary: "hsl(5, 68%, 55%)",
     white: "hsl(0, 0%, 100%)",
     black: "hsl(0, 0%, 0%)",
+    bar: "hsl(0, 0%, 12%)",
     surface0: "hsl(0, 0%, 12%)",
     surface1: "hsl(0, 0%, 14%)",
     surface2: "hsl(0, 0%, 16%)",
@@ -38,13 +40,14 @@ const colors = {
     text1: "hsla(0, 0%, 100%, 1)",
     text2: "hsla(0, 0%, 100%, 0.87)",
     text3: "hsla(0, 0%, 100%, 0.54)",
-    opacity: "hsla(0, 0%, 100%, 0.5)",
+    opacity: "hsla(0, 0%, 0%, 0.5)",
     disabled: "hsla(0, 0%, 100%, 0.26)",
     border: "hsla(0, 0%, 100%, 0.23)",
     divider: "hsla(0, 0%, 100%, 0.12)",
     success: "hsl(122, 39%, 49%)",
     error: "hsl(4, 90%, 58%)",
     warning: "hsl(36, 100%, 50%)",
+    info: "hsl(207, 90%, 54%)",
   },
 };
 
@@ -56,6 +59,7 @@ export interface ITheme {
   secondary: string;
   white: string;
   black: string;
+  bar: string;
   surface0: string;
   surface1: string;
   surface2: string;
@@ -72,6 +76,7 @@ export interface ITheme {
   success: string;
   error: string;
   warning: string;
+  info: string;
 }
 
 const lightTheme: ITheme = { ...colors.light, roundness: 4 };

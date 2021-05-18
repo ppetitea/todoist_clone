@@ -24,7 +24,7 @@ const StackNavigation = ({ listOfScreens }: StackNavigationProps) => {
               ...screen.options,
               headerStyle: {
                 ...styles.headerStyle,
-                backgroundColor: theme.surface3,
+                backgroundColor: theme.bar,
               },
               headerTitleStyle: {
                 color: theme.text1,

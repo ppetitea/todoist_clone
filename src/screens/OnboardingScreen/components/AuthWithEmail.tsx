@@ -10,6 +10,7 @@ import palette from "../../../constants/palette";
 import useBoolean, { BooleanHookFunction } from "../../../hooks/useBoolean";
 import useString from "../../../hooks/useString";
 import { auth } from "../../../services/firebase";
+import addUserInFirestore from "../services/addUserInFirestore";
 import EmailForm from "./EmailForm";
 import PasswordForm from "./PasswordForm";
 import RegistrationForm from "./RegistrationForm";

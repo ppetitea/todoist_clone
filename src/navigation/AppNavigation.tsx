@@ -11,6 +11,7 @@ import ThemeContext, {
   useThemeContext,
 } from "./hooks/ThemeContext";
 import { toElementsLibraryTheme, toPaperTheme } from "../constants/theme";
+import { StatusBar } from "expo-status-bar";
 
 const AppNavigation = () => {
   const authorizeAccessToSecureNavigation = useBoolean();
@@ -38,6 +39,7 @@ const AppNavigation = () => {
           </NavigationContainer>
         </ThemeProvider>
       </PaperProvider>
+      <StatusBar style={themeContext.mode === "light" ? "dark" : "light"} />
     </ThemeContext.Provider>
   );
 };

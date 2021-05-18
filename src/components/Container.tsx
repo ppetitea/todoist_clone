@@ -40,11 +40,16 @@ const styles = StyleSheet.create({
   spaceBetween: { justifyContent: "space-between" },
   spaceAround: { justifyContent: "space-around" },
   center: { justifyContent: "center" },
+  alignCenter: { alignItems: "center" },
   flex: { flex: 1 },
   marginV5: { marginVertical: 5 },
   marginV10: { marginVertical: 10 },
   marginV20: { marginVertical: 20 },
   marginV30: { marginVertical: 30 },
+  marginH5: { marginHorizontal: 5 },
+  marginH10: { marginHorizontal: 10 },
+  marginH20: { marginHorizontal: 20 },
+  marginH30: { marginHorizontal: 30 },
   statusBar: { marginTop: Constants?.statusBarHeight },
 });
 
