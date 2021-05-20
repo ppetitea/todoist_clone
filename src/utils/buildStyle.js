@@ -3,9 +3,9 @@ import { StyleSheet } from "react-native";
 export const buildStyle = (props, styles) => {
   let style = styles.default;
 
-  for (const [styleKey, styleValues] of Object.entries(styles)) {
-    if (props[styleKey]) {
-      style = StyleSheet.compose(style, styleValues);
+  for (const [propKey, propValue] of Object.entries(props)) {
+    if (styles[propKey]) {
+      style = StyleSheet.compose(style, styles[propKey]);
     }
   }
   if (props.debug) {

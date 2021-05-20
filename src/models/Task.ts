@@ -11,6 +11,19 @@ export interface ITaskParams {
   priority?: 0 | 1 | 2 | 3;
   tags?: Array<string>;
   projectId?: string;
+  projectLabel?: string;
+}
+export interface ITask {
+  userId: string;
+  id: string;
+  title: string;
+  createdAt: Date | moment.Moment;
+  comment?: string;
+  deadline?: Date | moment.Moment;
+  priority?: 0 | 1 | 2 | 3;
+  tags?: Array<string>;
+  projectId?: string;
+  projectLabel?: string;
 }
 
 export class Task {
@@ -23,6 +36,7 @@ export class Task {
   priority?: 0 | 1 | 2 | 3;
   tags?: Array<string>;
   projectId?: string;
+  projectLabel?: string;
   constructor(initialState?: ITaskParams) {
     this.userId = initialState?.userId ?? "";
     this.id = initialState?.id ?? uuidv4();

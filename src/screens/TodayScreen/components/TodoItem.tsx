@@ -11,8 +11,8 @@ const { width, height } = Dimensions.get("window");
 export interface ITodoItem {
   id: string;
   title: string;
-  deadline?: Date;
-  projectLabel: string;
+  deadline?: Date | moment.Moment;
+  projectLabel?: string;
 }
 
 const TodoItem = ({ id, title, deadline, projectLabel }: ITodoItem) => {

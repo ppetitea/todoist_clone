@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Dimensions, View, TextInput } from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import {
+  StyleSheet,
+  Dimensions,
+  View,
+  TextInput,
+  FlatList,
+  SectionList,
+} from "react-native";
 import palette from "../../constants/palette";
 import { IVisibleHook, useVisible } from "../../hooks/useBoolean";
 import useVerticalDrawerAnimation from "../../hooks/useVerticalDrawerAnimation";
@@ -15,80 +22,55 @@ import Typo from "../../components/Typo";
 import Button from "../../components/Button";
 import Divider from "../../components/Divider";
 import TodoCategory from "./components/TodoCategory";
-import { ITodoItem } from "./components/TodoItem";
+import TodoItem, { ITodoItem } from "./components/TodoItem";
 import { FAB } from "react-native-elements";
 import TagButton from "./components/TagButton";
 import AddTaskModal from "../../components/AddTaskModal/AddTaskModal";
 import { moment } from "../../services";
 import { auth, db } from "../../services/firebase";
-import Task from "../../models/Task";
+import Task, { ITask } from "../../models/Task";
+import useCalendarOfTasks, {
+  IDayTaskSection,
+} from "../../hooks/useCalendarOfTasks";
+import SectionHeader, { ISection } from "./components/SectionHeader";
+import SectionItem from "./components/SectionItem";
 
 const { width, height } = Dimensions.get("window");
 
+const CalendarTask = (props: any) => {
+  const { sections }: { sections: any } = props;
+  const theme = useTheme();
+
+  const renderSectionHeader = useCallback(
+    ({ section }: { section: ISection }) => <SectionHeader section={section} />,
+    [theme]
+  );
+  const renderItem = useCallback(
+    ({ item }: { item: Task }) => <SectionItem item={item} />,
+    []
+  );
+  const extractKey = useCallback((item) => item.id, []);
+  return (
+    <SectionList
+      sections={sections.list}
+      keyExtractor={extractKey}
+      renderItem={renderItem}
+      renderSectionHeader={renderSectionHeader}
+      stickySectionHeadersEnabled={true}
+      removeClippedSubviews={true}
+    />
+  );
+};
+
 const TodayScreen = () => {
-  const menu = useVisible();
   const addTodoModal = useVisible();
   const theme = useTheme();
-  useTodayScreenHeader(menu);
-
-  const initialUserTasks: any = [];
-  const [userTasks, setUserTasks] = useState(initialUserTasks);
-
-  useEffect(() => {
-    const userTasksRef = db.collection("usersTasks").doc(auth.currentUser?.uid);
-    const subscriber = userTasksRef
-      .collection("tasks")
-      .onSnapshot((snapshot) => {
-        const nextUserTasks = snapshot.docs.map((item) => {
-          const task = item.data();
-          const nextTask = {
-            userId: task.userId,
-            id: task.id,
-            title: task.title,
-            comment: task.comment,
-            createdAt: task.createdAt?.seconds,
-            deadline: task.deadline?.seconds,
-            priority: task.priority,
-            tags: task.tags,
-            projectId: task.projectId,
-            projectLabel: "Lab 🧪",
-          };
-          return nextTask;
-        });
-        setUserTasks(nextUserTasks);
-      });
-    return () => subscriber();
-  }, []);
-
-  const mockData = [
-    {
-      id: "key001",
-      title:
-        "Avoir une machine linux avec une interface graphic pour les peer correction",
-      deadline: moment().add(-moment.duration(1, "day")),
-      projectLabel: "Lab 🧪",
-    },
-    {
-      id: "key002",
-      title: "Acheter des lis oranges pour Lucie <3",
-      deadline: moment("15 05 2021", "DD MM YYYY"),
-      projectLabel: "Lab 🧪",
-    },
-  ];
+  useTodayScreenHeader();
+  const sections = useCalendarOfTasks();
 
   return (
     <Container page flex>
-      <TodoCategory
-        title="En retard"
-        rightButtonTitle="Reporter"
-        items={mockData}
-        extractKey={(item: ITodoItem) => item.id}
-      />
-      <TodoCategory
-        title={"Aujourd'hui - " + moment().format("ddd DD MMMM")}
-        items={userTasks}
-        extractKey={(item: ITodoItem) => item.id}
-      />
+      <CalendarTask sections={sections} />
       <FAB
         icon={<Icon name="add" size={24} color={theme.white} />}
         placement="right"
@@ -102,7 +84,8 @@ const TodayScreen = () => {
   );
 };
 
-const useTodayScreenHeader = (menu: IVisibleHook) => {
+const useTodayScreenHeader = () => {
+  const menu = useVisible();
   const navigation = useNavigation();
   const leftDrawer = useLeftDrawer();
   const theme = useTheme();
@@ -138,6 +121,7 @@ const useTodayScreenHeader = (menu: IVisibleHook) => {
       ),
     });
   }, [menu.visible, theme]);
+  return menu;
 };
 
 const TodayScreenMenu = ({ menu }: { menu: IVisibleHook }) => {

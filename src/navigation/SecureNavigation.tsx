@@ -4,15 +4,25 @@ import { Button, Portal } from "react-native-paper";
 import Drawer from "../components/Drawer/Drawer";
 import useDrawer from "../components/Drawer/hooks/useDrawer";
 import Typo from "../components/Typo";
-import { SCREEN_HOME, SCREEN_TODAY } from "../constants/navigation";
+import {
+  SCREEN_DEVELOP,
+  SCREEN_HOME,
+  SCREEN_TODAY,
+} from "../constants/navigation";
 import palette from "../constants/palette";
 import { IStackScreen } from "../models/navigation";
+import ResearchAndDevelopScreen from "../screens/ResearchAndDevelop/ResearchAndDevelopScreen";
 import TodayScreen from "../screens/TodayScreen/TodayScreen";
 import { auth } from "../services/firebase";
 import StackNavigation from "./components/StackNavigation";
 import DrawerContext from "./hooks/DrawerContext";
 
 const SCREEN_LIST: Array<IStackScreen> = [
+  //   {
+  //     ...SCREEN_DEVELOP,
+  //     component: ResearchAndDevelopScreen,
+  //     options: undefined,
+  //   },
   { ...SCREEN_TODAY, component: TodayScreen, options: undefined },
 ];
 

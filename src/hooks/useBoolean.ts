@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 export interface IBooleanHook {
   value: boolean;
   setValue: (value: boolean) => void;
@@ -12,13 +12,13 @@ const useBoolean = (initialValue = false) => {
   const [virgin, setVirgin] = useState(true);
   const [value, setValue] = useState(initialValue);
 
-  const touchValue = (value: boolean) => {
+  const touchValue = useCallback((value: boolean) => {
     setValue(value);
     if (virgin) setVirgin(false);
-  };
-  const enable = () => touchValue(true);
-  const disable = () => touchValue(false);
-  const toggle = () => touchValue(!value);
+  }, []);
+  const enable = useCallback(() => touchValue(true), []);
+  const disable = useCallback(() => touchValue(false), []);
+  const toggle = useCallback(() => touchValue(!value), []);
   return { value, setValue: touchValue, enable, disable, toggle, virgin };
 };
 

@@ -1,5 +1,11 @@
 import React from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  View,
+  ViewProps,
+  ViewStyle,
+} from "react-native";
 import palette from "../constants/palette";
 import { buildStyle } from "../utils/buildStyle";
 import Constants from "expo-constants";
@@ -7,7 +13,30 @@ import { useTheme } from "../navigation/hooks/ThemeContext";
 
 const { width, height } = Dimensions.get("window");
 
-const Container = (props: any) => {
+type CustomViewStyle = Omit<ViewStyle, "flex"> & { flex?: boolean | number };
+export interface ContainerProps extends ViewProps, CustomViewStyle {
+  fullWidth?: boolean;
+  row?: boolean;
+  page?: boolean;
+  card?: boolean;
+  spaceBetween?: boolean;
+  spaceAround?: boolean;
+  center?: boolean;
+  alignCenter?: boolean;
+  flex?: boolean | number;
+  marginV5?: boolean;
+  marginV10?: boolean;
+  marginV20?: boolean;
+  marginV30?: boolean;
+  marginH5?: boolean;
+  marginH10?: boolean;
+  marginH20?: boolean;
+  marginH30?: boolean;
+  statusBar?: boolean;
+  children?: any;
+}
+
+const Container = (props: ContainerProps) => {
   let style = buildStyle(props, styles);
   const theme = useTheme();
   if (props.page) {

@@ -11,8 +11,9 @@ export const NAVIGATION_OFFLINE = {
 
 export const SCREEN_HOME = { key: "SCREEN_HOME", label: "Home" };
 export const SCREEN_TODAY = { key: "SCREEN_TODAY", label: "Aujourd'hui" };
+export const SCREEN_DEVELOP = { key: "SCREEN_DEVELOP", label: "Develop" };
 
 export const NAVIGATION_SECURE = {
   key: "NAVIGATION_SECURE",
-  screens: [SCREEN_TODAY],
+  screens: [SCREEN_DEVELOP, SCREEN_TODAY],
 };
