@@ -12,7 +12,6 @@ export interface IDay {
 }
 
 export interface IDayTaskSection extends IDay {
-  isLate?: boolean;
   data: Task[];
 }
 
@@ -20,6 +19,9 @@ const useCalendarOfTasks = () => {
   const numToRender = useNumber(20);
   const userTasks = useUserTasks();
   const [dayList, setDayList] = useState(buildDayListForOneYearFromToday());
+  const [dayListFromStartWeek, setDayListFromStartWeek] = useState(
+    buildDayListForOneYearFromStartOfWeek()
+  );
   const [calendarOfTasks, setCalendarOfTasks] = useState(
     buildCalendarOfTasks(userTasks, dayList)
   );
@@ -29,7 +31,7 @@ const useCalendarOfTasks = () => {
   }, [userTasks, dayList]);
 
   //   const list = calendarOfTasks.slice(0, numToRender.value);
-  return { list: calendarOfTasks, numToRender };
+  return { list: calendarOfTasks, numToRender, dayListFromStartWeek };
 };
 
 const buildCalendarOfTasks = (listOfTasks: Task[], dayList: IDay[]) => {
@@ -108,7 +110,7 @@ const buildDayListForOneYearFromStartDate = (startDate: "day" | "week") => {
 };
 
 const formatDate = (calendarDate: Date | moment.Moment) => {
-  const date = moment(calendarDate);
+  const date = moment(calendarDate).startOf("day");
   const today = moment().startOf("day");
   const inTwoDays = moment().startOf("day").add(2, "day");
 

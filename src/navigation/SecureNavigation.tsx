@@ -18,11 +18,11 @@ import StackNavigation from "./components/StackNavigation";
 import DrawerContext from "./hooks/DrawerContext";
 
 const SCREEN_LIST: Array<IStackScreen> = [
-  //   {
-  //     ...SCREEN_DEVELOP,
-  //     component: ResearchAndDevelopScreen,
-  //     options: undefined,
-  //   },
+  {
+    ...SCREEN_DEVELOP,
+    component: ResearchAndDevelopScreen,
+    options: undefined,
+  },
   { ...SCREEN_TODAY, component: TodayScreen, options: undefined },
 ];
 

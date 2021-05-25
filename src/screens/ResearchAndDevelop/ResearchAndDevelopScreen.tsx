@@ -18,9 +18,10 @@ import Container from "../../components/Container";
 import mockData from "./mockData";
 import moment from "moment";
 import DrawerFlatlistTest from "./DrawerFlatlistTest";
+import SectionListTest from "./SectionListTest";
 
 const ResearchAndDevelopScreen = () => {
-  return <DrawerFlatlistTest />;
+  return <SectionListTest />;
 };
 
 const styles = StyleSheet.create({});

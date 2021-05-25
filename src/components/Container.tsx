@@ -34,6 +34,7 @@ export interface ContainerProps extends ViewProps, CustomViewStyle {
   marginH30?: boolean;
   statusBar?: boolean;
   children?: any;
+  debug?: boolean;
 }
 
 const Container = (props: ContainerProps) => {
